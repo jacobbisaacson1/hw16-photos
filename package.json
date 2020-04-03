@@ -1,0 +1,24 @@
+{
+  "name": "hw16-photo-site",
+  "version": "1.0.0",
+  "description": "2 models, user and photo, crud, app, express, mongoose, mongodb, cant wait",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://git.generalassemb.ly/jacobbisaacson/hw16-photo-site.git"
+  },
+  "keywords": [
+    "crud",
+    "rest",
+    "express",
+    "auth",
+    "mongo",
+    "mongoose",
+    "models"
+  ],
+  "author": "jacob isaacson",
+  "license": "ISC"
+}
