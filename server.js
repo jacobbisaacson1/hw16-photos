@@ -3,12 +3,15 @@ const express = require('express')
 const server = express()
 const PORT = process.env.PORT
 
+//midware
+server.use(express.static('public'))
+
 server.get('/', (req, res) => {
-  res.send('hi im server')
+  res.render('home.ejs')
 })
 
 server.get('*', (req, res) => {
-  res.status(404).send('404 Page not found')
+  res.status(404).render('404.ejs')
 })
 
 server.listen(PORT, () => {
