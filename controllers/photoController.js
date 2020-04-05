@@ -76,7 +76,30 @@ router.get('/id:/edit', async (req, res, next) => {
 	}
 })
 
+router.put('/id:', async (req, res, next) => {
+	try {
+		const updatedPhoto = await Photo.findByIdAndUpdate(req.params.id, req.body, { new: true })
+		console.log("\nupdated photo:", updatedPhoto);
+		res.redirect(`/photos/${updatedPhoto._id}`)
+	} catch(err) {
+		next(err)
+	}
+})
+
 
 
 
 module.exports = router
+
+
+
+
+
+
+
+
+
+
+
+
+

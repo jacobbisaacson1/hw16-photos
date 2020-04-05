@@ -9,6 +9,10 @@ const userSchema = new mongoose.Schema({
 		type: String,
 		required: true
 	}
+	photo: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: "Photo"
+	}
 })
 
 const User = mongoose.model('User', userSchema)
