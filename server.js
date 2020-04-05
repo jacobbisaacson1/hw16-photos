@@ -14,8 +14,11 @@ server.use(bodyParser.urlencoded({ extended: false}))
 server.use(methodOverride('_method'))
 
 //controllers
-const photoController = require('./controllers/photoController.js')
+const photoController = require('./controllers/photoController')
 server.use('/photos', photoController)
+
+const userController = require('./controllers/userController')
+server.use('/users', userController)
 
 server.get('/', (req, res) => {
   res.render('home.ejs')
