@@ -4,13 +4,31 @@
 
 	<form method="POST" action="/photos">
 		<fieldset>
+
 			<label for="title">Title:</label>
 			<input 
 				type="text" 
 				name="title" 
 				id="title" 
-				placeholder="Post New Pic!"
+				placeholder="Pic Title"
 				/>
+
+			<label for="user">User:</label>
+			<input 
+				type="text" 
+				name="user" 
+				id="user" 
+				placeholder="Who took this pic?"
+				/>
+
+			<label for="url">URL:</label>
+			<input 
+				type="text" 
+				name="url" 
+				id="url" 
+				placeholder="Paste the photo URL here"
+				/>
+
 		</fieldset>
 		<button>Add Pic!</button>
 	</form>
