@@ -1,29 +1,8 @@
 <%- include('../partials/header.ejs') %>
 
-  <h2>Add Photographer</h2>
-
-  <form method="POST" action="/users">
-    <fieldset>
-      <label for="name">Photographer Name:</label>
-      <input 
-        id="name" 
-        type="text" 
-        name="name" 
-        placeholder="Enter Name" 
-      />
-    </fieldset>
-
-      <div>
-        <label for="photo-select">Choose a Photo:</label>
-        <select name="photo" id="photo-select">
-          <option value="" disabled selected>(choose a photo)</option>
-          <% photos.forEach((photo) => { %>
-            <option value="<%= photo.id %>"><%= photo.title %></option>
-          <% }) %>
-        </select>        
-      </div>
-
   <h3>Sign up here</h3>
+
+  <p><%= message %></p>
 
   <form method="POST" action="/auth/register">
     <fieldset>
@@ -55,11 +34,4 @@
     </fieldset>
   </form>
 
-    <button>Create Photographer</button>
-
-  </form>
-
-<%- include('../partials/footer.ejs') %> 
-
-
-
+<%- include('../partials/footer.ejs') %>
