@@ -9,6 +9,10 @@ router.get('/new', (req, res) => {
 	res.render('photos/new.ejs')
 })
 
+router.post('/', (req, res, next) => {
+	res.send('hitting the post route for photos')
+})
+
 
 
 
