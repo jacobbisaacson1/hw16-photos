@@ -22,6 +22,17 @@ router.get('/new', (req, res) => {
 	res.render('photos/new.ejs')
 })
 
+router.get('/:id', async (req, res, next) => {
+	try {
+		const foundPhoto = await Photo.findById(req.params.id)
+		res.render('photos/show.ejs', {
+			photo: foundPhoto
+		})
+	} catch(err) {
+		next(err)
+	}
+})
+
 router.post('/', async (req, res, next) => {
 	try {
 		const createdPhoto = await Photo.create(req.body)
