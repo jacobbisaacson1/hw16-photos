@@ -55,8 +55,22 @@ router.post('/', async (req, res, next) => {
 router.delete('/:id', async (req, res, next) => {
 	try {
 		const deletedPhoto = await Photo.findByIdAndRemove(req.params.id)
-		console.log("\ndeleted photo:", deletedPhoto);
+		console.log("\ndeleted photo:", deletedPhoto); // yep
 		res.redirect('/photos')
+	} catch(err) {
+		next(err)
+	}
+})
+
+
+router.get('/id:/edit', async (req, res, next) => {
+	try {
+		const editedPhoto = await Photo.findById(req.params.id)
+		console.log("\nedited photo:", editedPhoto);
+		res.send("trying to get to editedPhoto page with form to edit")
+		// res.render('photos/edit.ejs', {
+		// 	photo: editedPhoto
+		// })
 	} catch(err) {
 		next(err)
 	}
