@@ -52,6 +52,15 @@ router.post('/', async (req, res, next) => {
 // 	}
 // })
 
+router.delete('/:id', async (req, res, next) => {
+	try {
+		const deletedPhoto = await Photo.findByIdAndRemove(req.params.id)
+		console.log("\ndeleted photo:", deletedPhoto);
+		res.redirect('/photos')
+	} catch(err) {
+		next(err)
+	}
+})
 
 
 

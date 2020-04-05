@@ -2,6 +2,7 @@ require('dotenv').config()
 const express = require('express')
 const server = express()
 const bodyParser = require('body-parser')
+const methodOverride = require('method-override')
 const PORT = process.env.PORT
 
 //db
@@ -10,6 +11,7 @@ require('./db/db')
 //midware
 server.use(express.static('public'))
 server.use(bodyParser.urlencoded({ extended: false}))
+server.use(methodOverride('_method'))
 
 //controllers
 const photoController = require('./controllers/photoController.js')

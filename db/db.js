@@ -4,8 +4,8 @@ const connectionString = process.env.MONGODB_URI
 
 mongoose.connect(connectionString, {
 	useNewUrlParser: true,
- 	useUnifiedTopology: true
- 	// useFindAndModify: false
+ 	useUnifiedTopology: true,
+ 	useFindAndModify: false
  })
 
 mongoose.connection.on('connected', () => {

@@ -6,8 +6,6 @@
     <a href="/photos/<%= photo.id %>/edit">(Edit <%= photo.title %>)</a>
   </div>
 
-
-  <!-- https://github.com/expressjs/method-override#override-using-a-query-value -->
   <form method="POST" action="/photos/<%= photo.id %>?_method=DELETE">
     <button>Delete <%= photo.title %></button>
   </form>
