@@ -9,6 +9,10 @@ const PORT = process.env.PORT
 server.use(express.static('public'))
 server.use(bodyParser.urlencoded({ extended: false}))
 
+//controllers
+const photoController = require('./controllers/photoController.js')
+server.use('/photos', photoController)
+
 server.get('/', (req, res) => {
   res.render('home.ejs')
 })
