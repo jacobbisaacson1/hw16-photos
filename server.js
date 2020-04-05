@@ -4,6 +4,8 @@ const server = express()
 const bodyParser = require('body-parser')
 const PORT = process.env.PORT
 
+//db
+require('./db/db')
 
 //midware
 server.use(express.static('public'))
