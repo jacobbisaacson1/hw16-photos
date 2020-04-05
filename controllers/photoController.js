@@ -10,9 +10,13 @@ router.get('/new', (req, res) => {
 	res.render('photos/new.ejs')
 })
 
-router.post('/', (req, res, next) => {
-	console.log("\nreq.body:", req.body);
-	res.send('hitting the post route for photos')
+router.post('/', async (req, res, next) => {
+	try {
+		await Photo.create(req.body)
+		res.redirect('/photos')
+	} catch(err) {
+		next(err)
+	}
 })
 
 
