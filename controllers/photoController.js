@@ -26,7 +26,7 @@ router.post('/', async (req, res, next) => {
 	try {
 		const createdPhoto = await Photo.create(req.body)
 		console.log("\ncreated photo:", createdPhoto);
-		res.redirect('/photos/' + createdPhoto.id)
+		res.redirect('/photos/') // can add "+ createdPhoto.id" later to render that specic photo id page
 		} catch(err) {
 			next(err)
 		}

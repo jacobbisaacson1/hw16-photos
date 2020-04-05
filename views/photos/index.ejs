@@ -1,0 +1,15 @@
+<%- include('../partials/header.ejs') %>
+
+  <h2>Pics Page</h2>
+
+  <ul>
+    <% photos.forEach(photo => { %>
+      <li>
+        <a href="/photos/<%= photo.id %>">
+          <%= photo.title %>        
+        </a>
+      </li>
+    <% }) %>
+  </ul>
+
+<%- include('../partials/footer.ejs') %>
