@@ -12,6 +12,16 @@
         placeholder="Enter Name" 
       />
     </fieldset>
+
+     <div>
+        <label for="photo-select">Choose a Photo:</label>
+        <select name="photo" id="photo-select">
+          <option value="" disabled selected>(choose a photo)</option>
+          <% photos.forEach((photo) => { %>
+            <option value="<%= photo.id %>"><%= photo.title %></option>
+          <% }) %>
+        </select>        
+      </div>
     <button>Create Photographer</button>
   </form>
 
