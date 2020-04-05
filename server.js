@@ -25,6 +25,8 @@ server.use('/photos', photoController)
 const userController = require('./controllers/userController')
 server.use('/users', userController)
 
+const authController = require("./controllers/authController")
+server.use("/auth", authController)
 
 server.get('/register', (req, res) => {
   const message = req.session.message

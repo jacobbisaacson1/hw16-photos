@@ -13,7 +13,7 @@
       />
     </fieldset>
 
-      <div>
+     <div>
         <label for="photo-select">Choose a Photo:</label>
         <select name="photo" id="photo-select">
           <option value="" disabled selected>(choose a photo)</option>
@@ -22,44 +22,7 @@
           <% }) %>
         </select>        
       </div>
-
-  <h3>Sign up here</h3>
-
-  <form method="POST" action="/auth/register">
-    <fieldset>
-      <legend>
-        <small>
-          Choose a username and password below
-        </small>
-      </legend>
-      <div>
-        <label for="username">Username:</label>
-        <input 
-          id="username" 
-          type="text" 
-          name="username" 
-          placeholder="Choose a username" 
-        />
-      </div>
-      <div>
-        <label for="password">Password</label>
-        <input 
-          id="password"
-          type="password" 
-          name="password"
-          placeholder="Choose a password"
-          required minlength="6"
-        >
-      </div>
-      <button>Sign up!</button>
-    </fieldset>
-  </form>
-
     <button>Create Photographer</button>
-
   </form>
 
 <%- include('../partials/footer.ejs') %> 
-
-
-
