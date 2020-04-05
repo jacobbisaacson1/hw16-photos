@@ -5,7 +5,9 @@ router.get('/', (req, res) => {
 	res.send("controller working")
 })
 
-
+router.get('/new', (req, res) => {
+	res.render('photos/new.ejs')
+})
 
 
 
