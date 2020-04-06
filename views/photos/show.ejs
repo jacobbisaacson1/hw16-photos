@@ -2,9 +2,9 @@
 
   <h2><%= photo.title %></h2>
 
-  <div>
-    <a href="/photos/<%= photo.id %>/edit">(Edit <%= photo.title %>)</a>
-  </div>
+<!--   <div>
+    <a href="/photos/<   photo.id %>/edit">(Edit <   photo.title %>)</a>
+  </div> -->
 
   <form method="POST" action="/photos/<%= photo.id %>?_method=DELETE">
     <button>Delete <%= photo.title %></button>

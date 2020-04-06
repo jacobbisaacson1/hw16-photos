@@ -18,46 +18,46 @@ router.get('/register', (req, res) => {
 })
 
 // register route: POST /auth/register
-router.post('/register', async (req, res, next) => {
+// router.post('/register', async (req, res, next) => {
 
-  try {
-    // create a user in the database
-    console.log(req.body);
-    const desiredUsername = req.body.username
-    const desiredPassword = req.body.password
-    const userWithThisUsername = await User.findOne({
-      username: desiredUsername
-    })
-    console.log(userWithThisUsername);
-    // if username is taken  -- 
-    if(userWithThisUsername) { 
-      console.log("username exists")
-      req.session.message = `Username ${desiredUsername} already taken.`
-      res.redirect('/auth/register')
+//   try {
+//     // create a user in the database
+//     console.log(req.body);
+//     const desiredUsername = req.body.username
+//     const desiredPassword = req.body.password
+//     const userWithThisUsername = await User.findOne({
+//       username: desiredUsername
+//     })
+//     console.log(userWithThisUsername);
+//     // if username is taken  -- 
+//     if(userWithThisUsername) { 
+//       console.log("username exists")
+//       req.session.message = `Username ${desiredUsername} already taken.`
+//       res.redirect('/auth/register')
 
-    }
-    else {
-      const salt = bcrypt.genSaltSync(10)
-      const hashedPassword = bcrypt.hashSync(desiredPassword, salt)
+//     }
+//     else {
+//       const salt = bcrypt.genSaltSync(10)
+//       const hashedPassword = bcrypt.hashSync(desiredPassword, salt)
 
-      const createdUser = await User.create({
-        username: desiredUsername,
-        password: hashedPassword
-      })
+//       const createdUser = await User.create({
+//         username: desiredUsername,
+//         password: hashedPassword
+//       })
 
-      req.session.loggedIn = true
-      req.session.userId = createdUser._id // "more unique"
-      req.session.username = createdUser.username
-      req.session.message = `Thanks for signing up, ${createdUser.username}`
-      res.redirect('/')
+//       req.session.loggedIn = true
+//       req.session.userId = createdUser._id // "more unique"
+//       req.session.username = createdUser.username
+//       req.session.message = `Thanks for signing up, ${createdUser.username}`
+//       res.redirect('/')
 
-    }
+//     }
 
-  } catch(error) {
-    next(error)
-  }
+//   } catch(error) {
+//     next(error)
+//   }
 
-})
+// })
 
 // login routes
 // show form GET /auth/login
