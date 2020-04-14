@@ -4,10 +4,12 @@ const User = require('../models/user')
 
 // create account
 router.get('/register', (req, res) => {
+  const session = req.session
   messageToDisplay = req.session.message
   req.session.message = ""
   res.render('auth/register.ejs', {
-    message: messageToDisplay
+    message: messageToDisplay,
+    session: session
   })
 })
 
@@ -31,7 +33,8 @@ router.post('/register', async (req, res, next) => {
       const createdUser = await User.create({
         username: desiredUsername,
         password: desiredPassword,
-        firstName: req.body.firstName
+        firstName: req.body.firstName,
+        lastName: req.body.lastName
       })
       req.session.loggedIn = true
       req.session.userId = createdUser._id
@@ -47,10 +50,12 @@ router.post('/register', async (req, res, next) => {
 
 
 router.get('/login', (req, res) => {
+  const session = req.session
   messageToDisplay = req.session.message
   req.session.message = ""
   res.render('auth/login.ejs', {
-    message: messageToDisplay
+    message: messageToDisplay,
+    session: session
   })
 })
 

@@ -55,21 +55,9 @@ router.get('/:id/edit', async (req, res, next) => {
 // update route
 router.put('/:id', async (req, res, next) => {
 	try {
-		const desiredUsername = req.body.username
-		const desiredPassword = req.body.password
-		// check if they belong to an existing user
-		const userWithSameUsername = await User.findOne({ username: req.body.username })
-		// if they do, 
-		if(userWithSameUsername) {
-			// reload register page and display message 
-			req.session.message = "That username is taken"
-			res.redirect(`/users/${req.params.id}/edit`)
-		// else they dont
-		} else {
-			const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, {new: true})
-			req.session.message = "Nice Updates!"
-			res.redirect(`/users/${req.params.id}`)
-		}
+		const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, {new: true})
+		req.session.message = "Updates Saved"
+		res.redirect(`/users/${req.params.id}`)
 	} catch (error) {
 		next(error)
 	}
@@ -82,8 +70,8 @@ router.delete('/:id', async (req, res, next) => {
 	try {
 		const userToDelete = await User.findByIdAndDelete(req.params.id)
 		const photosToDelete = await Photo.remove({ user: req.params.id })
-		req.session.message = "You deleted your account"
-		res.redirect('/')
+		await req.session.destroy()
+		res.render('user/deleted.ejs')
 	} catch (error) {
 		next(error)
 	}

@@ -7,8 +7,10 @@ const Photo = require('../models/photo')
 router.get('/', async (req, res, next) => {
 	try	{
 		const foundPhotos = await Photo.find({}).populate('user')
+		const session = req.session
 		res.render('photo/index.ejs', {
-			photos: foundPhotos
+			photos: foundPhotos,
+			session: session
 		})
 	} catch (error) {
 		next(error)
@@ -17,10 +19,12 @@ router.get('/', async (req, res, next) => {
 
 // for new
 router.get('/new', (req, res) => {
+	const session = req.session
 	messageToDisplay = req.session.message
 	req.session.message = ""
 	res.render('photo/new.ejs', {
-		message: messageToDisplay
+		message: messageToDisplay,
+		session: session
 	})
 })
 
@@ -48,10 +52,12 @@ router.post('/new', async (req, res, next) => {
 router.get('/:id', async (req, res, next) => {
 	try {
 		const foundPhoto = await Photo.findById(req.params.id).populate('user')
+		const session = req.session
 		const currentUser = req.session.userId
 		res.render('photo/show.ejs', {
 			photo: foundPhoto,
-			currentUser: currentUser
+			currentUser: currentUser,
+			session: session
 		})
 	} catch (error) {
 		next(error)
@@ -62,9 +68,12 @@ router.get('/:id', async (req, res, next) => {
 // edit route
 router.get('/:id/edit', async (req, res, next) => {
 	try {
+		const session = req.session
 		const foundPhoto = await Photo.findById(req.params.id).populate('user')
 		res.render('photo/edit.ejs', {
-			photo: foundPhoto
+			photo: foundPhoto,
+			currentUser: currentUser,
+			session: session
 		})
 	} catch (error) {
 		next(error)
