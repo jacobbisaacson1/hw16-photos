@@ -7,8 +7,10 @@ const Photo = require('../models/photo')
 router.get('/', async (req, res, next) => {
 	try {
 		const foundUsers = await User.find({})
+		const session = req.session
 		res.render('user/index.ejs', {
-			users: foundUsers
+			users: foundUsers,
+			session: session
 		})
 	} catch (error) {
 		next(error)
@@ -24,12 +26,12 @@ router.get('/:id', async (req, res, next) => {
 		const foundUser = await User.findById(req.params.id)
 		const foundPhotos = await Photo.find({ user: req.params.id })
 		const currentUser = req.session.userId
-		console.log(foundUser);
-		console.log(currentUser);
+		const session = req.session
 		res.render('user/show.ejs', {
 			user: foundUser,
 			photos: foundPhotos,
-			currentUser: currentUser
+			currentUser: currentUser,
+			session: session
 		})
 	} catch (error) {
 		next(error)
@@ -41,11 +43,13 @@ router.get('/:id/edit', async (req, res, next) => {
 	try {
 		const foundUser = await User.findById(req.params.id)
 		const currentUser = req.session.userId
+		const session = req.session
 		messageToDisplay = req.session.message
 		res.render('user/edit.ejs', {
 			user: foundUser,
 			currentUser: currentUser,
-			message: messageToDisplay
+			message: messageToDisplay,
+			session: session
 		})
 	} catch (error) {
 		next(error)

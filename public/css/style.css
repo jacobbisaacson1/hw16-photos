@@ -1,14 +1,57 @@
 body {
+	background-color: lavender;
+	color: darkgreen;
+}
+
+nav > a {
+	padding: 10px;
+}
+
+a {
+	color: #58656D;
+}
+
+a:hover {
+	color:  #212528;
+}
+
+main {
+	height: 90vh;
+	width: 75%;
+	margin: 0 auto;
 	background-color: whitesmoke;
+	overflow: scroll;
+	padding: 3px;
+}
+
+header, footer {
+	position: sticky;
 }
 
 header {
 	display: flex;
 	justify-content: space-between;
+	margin-top: 10px;
+}
+
+footer {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 75%;
+	margin: 0 auto;
+	background-color: skyblue;
+	margin-top: 10px;
 }
 
 img {
-	height: 300px;
+	height: auto;
+	width: 200px;
+	height: 200px;
+}
+
+button {
+	margin: 5px;
 }
 
 .photoAndInfo {
@@ -17,7 +60,16 @@ img {
 	margin: 5px;
 }
 
-.userPhotoDisplay {
+.photoGrid {
 	display: flex;
-
+	flex-direction: row;
+	flex-wrap: wrap;
+	height: 80vh;
+	width: 100%;
+	overflow: scroll;
+	padding: 10px;
 }
+
+
+
+
