@@ -1,0 +1,43 @@
+<%- include('../partials/header.ejs') %>
+
+<h2><%= user.firstName %> <%= user.lastName %></h2>
+
+<small>
+	<div>
+		<strong>Username:</strong> <%= user.username %>
+	</div>
+	<div>
+		<strong>Photos:</strong>
+	</div>
+	<div class="userPhotoDisplay">	
+		<% photos.forEach(photo => { %>
+			<div class="phtotAndInfo"></div>	
+			<img src="<%= photo.url %>">
+					<a href="/photos/<%= photo._id %>">
+						<% if (photo.title) { -%>
+							<i>"<%= photo.title %>"</i>
+						<% } else { -%>
+							<i>"Untitled"</i>
+						<% } -%>
+					</a>
+					<%= photo.datePosted.toDateString() %>	
+					at <%= photo.datePosted.toLocaleString([], {hour: '2-digit', minute: '2-digit'}) %>
+			</div>
+		<% }) %>
+	</div>
+
+		<% if (user.id === currentUser) { -%>
+			<div>
+				<p>Admin</p>
+
+				<a href="/users/<%= user.id %>/edit">Edit Account</a>
+				<form method="POST" action="/users/<%= user.id %>?_method=DELETE">
+					<button>Delete Account</button>
+				</form>
+		<% } else { -%>
+			
+		<% } -%>
+	</div>
+
+
+<%- include('../partials/footer.ejs') %>

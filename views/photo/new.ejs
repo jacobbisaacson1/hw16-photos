@@ -1,0 +1,42 @@
+<%- include('../partials/header.ejs') %>
+
+<h2>New Photo Page</h2>
+
+<small><p style="color: blue"> <%= message %> </p></small>
+
+<form method="POST" action='/photos/new'>
+	<fieldset>
+		<small>
+			<div>
+				<label for="title">Title:</label>
+				<input 
+					type="text" 
+					name="title" 
+					id="title" 
+					placeholder="Photo Title"
+				/>
+			</div>
+			<div>
+				<label for="url">Image:</label>
+				<input 
+					type="text" 
+					name="url" 
+					id="url" 
+					placeholder="Paste Image URL here"
+					required
+				/>
+			</div>
+			<div>
+				<div>
+					<label for="description">Description:</label>
+				</div>
+				<div>
+					<textarea id="description" name="description" placeholder="Enter photo description here"></textarea>
+				</div>
+			</div>
+			<button>Upload Image</button>
+		</small>
+	</fieldset>
+</form>
+
+<%- include('../partials/footer.ejs') %>

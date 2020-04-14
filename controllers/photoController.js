@@ -1,87 +1,97 @@
 const express = require('express')
 const router = express.Router()
+const User = require('../models/user')
 const Photo = require('../models/photo')
 
-// router.get('/', (req, res) => {
-// 	res.send("photo controller working")
-// })
-
+//for indexing
 router.get('/', async (req, res, next) => {
-	try {
-		const foundPhotos = await Photo.find({})
-		// console.log("\nfound photos:", foundPhotos);
-		res.render('photos/index.ejs', {
+	try	{
+		const foundPhotos = await Photo.find({}).populate('user')
+		res.render('photo/index.ejs', {
 			photos: foundPhotos
 		})
-	} catch(err) {
-		next(err)
+	} catch (error) {
+		next(error)
 	}
 })
 
+// for new
 router.get('/new', (req, res) => {
-	res.render('photos/new.ejs')
+	messageToDisplay = req.session.message
+	req.session.message = ""
+	res.render('photo/new.ejs', {
+		message: messageToDisplay
+	})
 })
+
+// to create
+router.post('/new', async (req, res, next) => {
+	try {
+		if(req.session.loggedIn) {
+			req.body.user = req.session.userId
+			req.body.username = req.session.username
+			const newPhoto = await Photo.create(req.body)
+			req.session.message = "Nice! You uploaded a photo!"
+			res.redirect('/')
+		} else {
+			req.session.message = `Sorry, you need to sign in / register to upload a photo`
+			res.redirect('/auth/login')
+		}
+
+	} catch (error) {
+		next(error)
+	}
+})
+
+// show route
 
 router.get('/:id', async (req, res, next) => {
 	try {
-		const foundPhoto = await Photo.findById(req.params.id)
-		// console.log("\nfoundphoto;", foundPhoto);
-		res.render('photos/show.ejs', {
+		const foundPhoto = await Photo.findById(req.params.id).populate('user')
+		const currentUser = req.session.userId
+		res.render('photo/show.ejs', {
+			photo: foundPhoto,
+			currentUser: currentUser
+		})
+	} catch (error) {
+		next(error)
+	}
+})
+
+
+// edit route
+router.get('/:id/edit', async (req, res, next) => {
+	try {
+		const foundPhoto = await Photo.findById(req.params.id).populate('user')
+		res.render('photo/edit.ejs', {
 			photo: foundPhoto
 		})
-	} catch(err) {
-		next(err)
+	} catch (error) {
+		next(error)
 	}
 })
 
-router.post('/', async (req, res, next) => {
+//update
+router.put('/:id/', async (req, res, next) => {
 	try {
-		const createdPhoto = await Photo.create(req.body)
-		// console.log("\ncreated photo:", createdPhoto);
+		const updatedPhoto = await Photo.findByIdAndUpdate(req.params.id, req.body, {new: true})
+		res.redirect(`/photos/${req.params.id}`)
+	} catch (error) {
+		next(error)
+	}
+})
 
-		// display message when saying "new photo added"
-		res.redirect('/photos/') // can add "+ createdPhoto.id" later to render that specic photo id page
-		} catch(err) {
-			next(err)
-		}
-	})
 
+// delete / destroy
 router.delete('/:id', async (req, res, next) => {
 	try {
-		const deletedPhoto = await Photo.findByIdAndRemove(req.params.id)
-		// console.log("\ndeleted photo:", deletedPhoto); // yep
-		res.redirect('/photos')
-	} catch(err) {
-		next(err)
+		const photoToDelete = await Photo.findByIdAndDelete(req.params.id)
+		req.session.message = "Photo deleted!"
+		res.redirect('/')
+	} catch (error) {
+		next(error)
 	}
 })
-
-
-// router.get('/id:/edit', async (req, res, next) => {
-// 	try {
-// 		const foundPhoto = await Photo.findById(req.params.id)
-// 		console.log("\nedited photo:", foundPhoto);
-// 		res.send('something please')
-// 		// res.send("trying to get to editedPhoto page with form to edit")
-// 		// res.render('photos/edit.ejs', {
-// 		// 	photo: editedPhoto
-// 		// })
-// 	} catch(err) {
-// 		next(err)
-// 	}
-// })
-
-// router.put('/id:/edit', async (req, res, next) => {
-// 	try {
-// 		const updatedPhoto = await Photo.findByIdAndUpdate(req.params.id, req.body, { new: true })
-// 		console.log("\nupdated photo:", updatedPhoto);
-// 		res.redirect(`/photos/${updatedPhoto._id}`)
-// 	} catch(err) {
-// 		next(err)
-// 	}
-// })
-
-
 
 
 module.exports = router

@@ -1,0 +1,67 @@
+<%- include('../partials/header.ejs') %>
+
+<% if (user.id === currentUser) { -%>
+	
+	<h2>Edit Account</h2> 
+	<p>
+	<form method="POST" action="/users/<%= user.id %>?_method=PUT">
+		<fieldset>
+			<small>
+				<div> 
+					<label for="username">Username: </label>
+					<input 
+						type="text" 
+						name="username" 
+						id="username" 
+						value="<%= user.username %>" 
+						placeholder="Edit Username"
+						required
+					>
+				</div>
+				<div>
+					<label for="password">Password: </label>
+					<input 
+						type="password" 
+						name="password" 
+						id="password" 
+						value="<%= user.password %>" 
+						placeholder="Edit Password"
+						required
+					>
+				</div>
+				<div>
+					<label for="firstName">First Name; </label>
+					<input 
+						type="text" 
+						name="firstName" 
+						id="firstName" 
+						value="<%= user.firstName %>"
+						placeholder="Edit First Name"
+						required 
+					>
+				</div>
+				<div>
+					<label for="lastName">Last Name: </label>
+					<input 
+						type="text" 
+						name="lastName" 
+						id="lastName" 
+						<% if (user.lastName) { -%>
+							value="<%= user.lastName %>"
+						<% } else { -%>
+							placeholder="Edit Last Name"
+						<% } -%>
+					>
+				</div>
+				<button>Edit</button>
+			</small>
+		</fieldset>
+	</form>
+<% } else { -%>
+	<h4>
+	You Need to Login! <a href="/auth/login">LOGGED IN</a>.
+	</h4>
+	
+<% } -%>
+
+<%- include('../partials/footer.ejs') %> 

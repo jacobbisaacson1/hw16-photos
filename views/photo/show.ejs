@@ -1,0 +1,43 @@
+<%- include('../partials/header.ejs') %>
+
+<h2>
+  <% if (photo.title) { -%>
+    <i>"<%= photo.title %>"</i>
+  <% } else { -%>
+    <i>"untitled image"</i>
+  <% } -%>
+</h2>
+
+
+  <img src="<%= photo.url %>">
+  <div>
+    <small> 
+      <% if (photo.title) { -%>
+        <i>"<%= photo.title %>"</i>
+      <% } else { -%>
+        <i>"untitled image"</i>
+      <% } -%>
+
+      posted by: <strong><%= photo.user.username %></strong> at 
+      <%= photo.datePosted.toLocaleString([], {hour: '2-digit', minute: '2-digit'}) %>
+
+      <div class="description">
+        <%= photo.description %>
+      </div>
+    </small>
+  </div>
+
+<h4>
+    <% if (photo.user.id === currentUser) { -%>
+      <a href="/photos/<%= photo.id %>/edit">EDIT IMAGE</a>
+      <form method="POST" action="/photos/<%= photo.id %>?_method=DELETE">
+        <button>DELETE</button>
+      </form>
+    <% } else { -%>
+      
+    <% } -%>
+</h4>
+
+
+
+<%- include('../partials/footer.ejs') %>

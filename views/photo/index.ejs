@@ -1,0 +1,29 @@
+<%- include('../partials/header.ejs') %>
+
+<h2>Photos Page</h2>
+
+<% photos.forEach(photo => { %>
+  
+  <img src="<%= photo.url %>">
+
+  <div>
+
+    <small> 
+
+        <a href="/photos/<%= photo._id %>">
+        <% if (photo.title) { -%>
+          <i>"<%= photo.title %>"</i>
+        <% } else { -%>
+          <i>"untitled image"</i>
+        <% } -%>
+      </a>
+
+      Posted by: <strong><a href="/users/<%= photo.id %>"><%= photo.user %></a></strong> at 
+      <%= photo.datePosted.toLocaleString([], { hour: '2-digit', minute: '2-digit' }) %>
+    </small>
+
+  </div>
+
+<% }) %>
+
+<%- include('../partials/footer.ejs') %>

@@ -1,42 +1,67 @@
 const express = require('express')
 const router = express.Router()
-const Photo = require('../models/photo')
 const User = require('../models/user')
+const Photo = require('../models/photo')
 
+//for user page
 router.get('/', async (req, res, next) => {
 	try {
-		const foundUsers = await User.find({}).populate('photo').exec()
-		console.log("\n users found with populate for photos user:", foundUsers);
-		res.render('users/index.ejs', {
+		const foundUsers = await User.find({})
+		res.render('user/index.ejs', {
 			users: foundUsers
 		})
-		res.redirect('/users')
-	} catch(err) {
-		next(err)
+	} catch (error) {
+		next(error)
 	}
+
 })
 
-router.get('/new', async (req, res) => {
+
+//show route
+
+router.get('/:id', async (req, res, next) => {
 	try {
-		const foundPhotosForUser = await Photo.find({})
-		console.log("\nfound photos for user:", foundPhotosForUser);
-		res.render('users/new.ejs', {
-			photos: foundPhotosForUser
+		const foundUser = await User.findById(req.params.id)
+		const foundPhotos = await Photo.find({ user: req.params.id })
+		const currentUser = req.session.userId
+		console.log(foundUser);
+		console.log(currentUser);
+		res.render('user/show.ejs', {
+			user: foundUser,
+			photos: foundPhotos,
+			currentUser: currentUser
 		})
-	} catch(err) {
-		next(err)
+	} catch (error) {
+		next(error)
 	}
 })
 
-router.post('/', async (req, res, next) => {
+// edit route
+router.get('/:id/edit', async (req, res, next) => {
 	try {
-		const createdUser = await User.create(req.body)
-		console.log("\ncreated user:", createdUser);
-		res.send(createdUser)
-	} catch(err) {
-		next(err)
+		const foundUser = await User.findById(req.params.id)
+		const currentUser = req.session.userId
+		res.render('user/edit.ejs', {
+			user: foundUser,
+			currentUser: currentUser
+		})
+	} catch (error) {
+		next(error)
 	}
 })
+
+// update route
+router.put('/:id', async (req, res, next) => {
+	try {
+		const updatedUser = await findByIdAndUpdate(req.params.id, req.body, {new: true})
+		res.redirect(`/users/${req.params.id}`)
+	} catch (error) {
+		next(error)
+	}
+})
+
+
+
 
 
 

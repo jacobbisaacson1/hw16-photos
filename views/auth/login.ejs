@@ -1,35 +1,35 @@
 <%- include('../partials/header.ejs') %>
 
-  <h3>Log in here</h3>
+<h2>Login</h2> 
 
-  <form method="POST" action="/auth/login">
-    <fieldset>
-      <legend>
-        <small>
-          Enter a username and password below
-        </small>
-      </legend>
-      <div>
-        <label for="username">Username:</label>
+<small><p style="color: blue"> <%= message %> </p></small>
+<small>If you don't already have an account, you can... <strong><a href="/auth/register">Create One</a></strong>.</small>
+<form method="POST" action="/auth/login">
+  <fieldset>
+    <small>
+      <div> 
+        <label for="username">Username: </label>
         <input 
-          id="username" 
           type="text" 
           name="username" 
-          placeholder="Enter your username" 
-        />
-      </div>
-      <div>
-        <label for="password">Password</label>
-        <input 
-          id="password"
-          type="password" 
-          name="password"
-          placeholder="Enter you password"
-          required minlength="6"
+          id="username" 
+          placeholder="Enter Username" 
+          required
         >
       </div>
-      <button>Log In!</button>
-    </fieldset>
-  </form>
+      <div>
+        <label for="password">Password: </label>
+        <input 
+          type="password" 
+          name="password" 
+          id="password" 
+          placeholder="Enter Password" 
+          required
+        >
+      </div>
+      <button>Login</button>
+    </small>
+  </fieldset>
+</form>
 
 <%- include('../partials/footer.ejs') %>
