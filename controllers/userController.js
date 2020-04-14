@@ -41,9 +41,11 @@ router.get('/:id/edit', async (req, res, next) => {
 	try {
 		const foundUser = await User.findById(req.params.id)
 		const currentUser = req.session.userId
+		messageToDisplay = req.session.message
 		res.render('user/edit.ejs', {
 			user: foundUser,
-			currentUser: currentUser
+			currentUser: currentUser,
+			message: messageToDisplay
 		})
 	} catch (error) {
 		next(error)
@@ -53,8 +55,21 @@ router.get('/:id/edit', async (req, res, next) => {
 // update route
 router.put('/:id', async (req, res, next) => {
 	try {
-		const updatedUser = await findByIdAndUpdate(req.params.id, req.body, {new: true})
-		res.redirect(`/users/${req.params.id}`)
+		const desiredUsername = req.body.username
+		const desiredPassword = req.body.password
+		// check if they belong to an existing user
+		const userWithSameUsername = await User.findOne({ username: req.body.username })
+		// if they do, 
+		if(userWithSameUsername) {
+			// reload register page and display message 
+			req.session.message = "Sorry, that username is taken"
+			res.redirect(`/users/${req.params.id}/edit`)
+		// else they dont
+		} else {
+			const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, {new: true})
+			req.session.message = "UPDATES SAVED"
+			res.redirect(`/users/${req.params.id}`)
+		}
 	} catch (error) {
 		next(error)
 	}

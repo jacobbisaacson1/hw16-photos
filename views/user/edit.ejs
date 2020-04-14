@@ -3,7 +3,7 @@
 <% if (user.id === currentUser) { -%>
 	
 	<h2>Edit Account</h2> 
-	<p>
+	<p style="color: blue"> <%= message %></p>
 	<form method="POST" action="/users/<%= user.id %>?_method=PUT">
 		<fieldset>
 			<small>
