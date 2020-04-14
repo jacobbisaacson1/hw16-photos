@@ -62,12 +62,12 @@ router.put('/:id', async (req, res, next) => {
 		// if they do, 
 		if(userWithSameUsername) {
 			// reload register page and display message 
-			req.session.message = "Sorry, that username is taken"
+			req.session.message = "That username is taken"
 			res.redirect(`/users/${req.params.id}/edit`)
 		// else they dont
 		} else {
 			const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, {new: true})
-			req.session.message = "UPDATES SAVED"
+			req.session.message = "Nice Updates!"
 			res.redirect(`/users/${req.params.id}`)
 		}
 	} catch (error) {
@@ -76,7 +76,18 @@ router.put('/:id', async (req, res, next) => {
 })
 
 
+// delete route 
 
+router.delete('/:id', async (req, res, next) => {
+	try {
+		const userToDelete = await User.findByIdAndDelete(req.params.id)
+		const photosToDelete = await Photo.remove({ user: req.params.id })
+		req.session.message = "You deleted your account"
+		res.redirect('/')
+	} catch (error) {
+		next(error)
+	}
+})
 
 
 
